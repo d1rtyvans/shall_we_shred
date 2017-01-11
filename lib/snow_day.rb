@@ -1,12 +1,14 @@
 class SnowDay
   # Default desirable condition variables
-  MIN_TEMP = 32
-  MAX_TEMP = 40
+  MIN_TEMP = 32.0
+  MAX_TEMP = 40.0
   MAX_WIND_SPEED = 20.0
 
+  attr_accessor :earlier_week_accumulation
+
   def initialize(response)
-    @response     = response
-    @icon         = response.fetch("icon")
+    @response = response
+    @icon     = response.fetch("icon")
   end
 
   def name
@@ -21,7 +23,7 @@ class SnowDay
     (cold? || snowing?) && !(raining? || windy?)
   end
 
-  # Desirable
+  # desirable
   def cold?
     response["temperatureMin"] < MIN_TEMP && response["temperatureMax"] < MAX_TEMP
   end
@@ -30,7 +32,7 @@ class SnowDay
     icon == "snow"
   end
 
-  # Undesirable
+  # undesirable
   def raining?
     icon == "rain"
   end
@@ -43,7 +45,8 @@ class SnowDay
     "#{name.upcase} - #{Time.at(response['time']).strftime('%b %-d')}\n"\
       "Low: #{response['temperatureMin']} / High: #{response['temperatureMax']} / "\
       "Wind: #{response['windSpeed']} mph\n"\
-      "Day Total: #{accumulation} ft."
+      "Day Total: #{accumulation} ft.\n"\
+      "Earlier Week Total: #{earlier_week_accumulation.to_f.round(1)} ft.\n"
   end
 
   private
