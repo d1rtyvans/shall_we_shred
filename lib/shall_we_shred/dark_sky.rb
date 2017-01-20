@@ -5,6 +5,7 @@ class DarkSky
 
   def self.forecast(lat, long)
     coordinates = [lat, long] * ","
+    require "pry"; binding.pry
     forecast = get("/forecast/#{ENV['SECRET_KEY']}/#{coordinates}")
     forecast["daily"]["data"]
   end

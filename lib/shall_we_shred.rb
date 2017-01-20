@@ -2,10 +2,10 @@ require "httparty"
 require "dotenv"
 Dotenv.load
 
-require_relative "dark_sky"
-require_relative "snow_day"
-require_relative "snow_week"
-require_relative "sms_messenger"
+require_relative "shall_we_shred/dark_sky"
+require_relative "shall_we_shred/snow_day"
+require_relative "shall_we_shred/snow_week"
+require_relative "shall_we_shred/sms_messenger"
 
 class ShallWeShred
   attr_reader :user
